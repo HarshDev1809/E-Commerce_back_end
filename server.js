@@ -17,6 +17,7 @@ mongoose.connect(DB_URL).then(()=>{
 
 app.use(bodyParser.json());
 require("./src/Routes/auth.routes")(app);
+require("./src/Routes/product.routes")(app);
 
 app.listen(PORT,()=>{
     console.log("Server Online");

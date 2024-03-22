@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const adminSchema = mongoose.Schema({
-    userName : {
-        type : String,
-        required : true,
-        minLength : 4
+
+    adminId : {
+        type: Number,
+        required : true
     },
 
     passWord : {
@@ -21,12 +21,6 @@ const adminSchema = mongoose.Schema({
     name : {
         type : String,
         required : true
-    },
-
-    adminPassword : {
-        type: String,
-        required : true,
-        minLength : 8
     }
 })
 

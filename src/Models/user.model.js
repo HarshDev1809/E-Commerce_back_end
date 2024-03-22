@@ -46,6 +46,16 @@ const userSchema = mongoose.Schema({
     },
     phoneNumber : {
         type : Number,
+    },
+    shoppingCart : {
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "ECommerceProductDB",
+        default : []
+    },
+    wishList : {
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "ECommerceProductDB",
+        default : []
     }
 })
 

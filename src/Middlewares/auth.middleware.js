@@ -9,7 +9,6 @@ const verifySignIn = (req,res,next)=>{
     if (!passWord) {
       return res.status(400).send({message : "PASSWORD CAN'T BE EMPTY!"});
     }
-  
     next();
 }
 
@@ -57,7 +56,59 @@ const verifySignUp = async(req,res,next)=>{
   }
 }
 
+const verifyAdminSignIn = (req,res,next)=>{
+  const { adminId, passWord } = req.body;
+  if (!adminId) {
+    return res.status(400).send({message : "AdminID CAN'T BE EMPTY!"});
+  }
+
+  if (!passWord) {
+    return res.status(400).send({message : "PASSWORD CAN'T BE EMPTY!"});
+  }
+  next();
+}
+
+const verifyAdminSignUp = async(req,res,next)=>{
+  const {passWord, name, emailId } =
+    req.body;
+
+  if (!passWord) {
+    return res.status(400).send({
+      message: "PASSWORD CAN'T BE EMPTY ! PLEASE ENTER A VALID PASSWORD",
+    });
+  }
+
+  if (!name) {
+    return res
+      .status(400)
+      .send({ message: "NAME CAN'T BE EMPTY ! PLEASE ENTER YOUR NAME" });
+  }
+
+  if (!emailId) {
+    return res.status(400).send({
+      message: "EMAIL ID CAN'T BE EMPTY ! PLEASE ENTER A VALID EMAIL ID",
+    });
+  }
+
+  try {
+    const user = await User.find({
+      emailId: emailId
+    });
+    if (user.length) {
+      return res
+        .status(400)
+        .send({ message: "Admin Already Exist!" });
+    } else {
+      next();
+    }
+  } catch (err) {
+    return res.status(500).send({message : "Something Went Wrong!"});
+  }
+}
+
 module.exports = {
     verifySignIn,
-    verifySignUp
+    verifySignUp,
+    verifyAdminSignIn,
+    verifyAdminSignUp
 }
