@@ -21,6 +21,12 @@ const adminSchema = mongoose.Schema({
     name : {
         type : String,
         required : true
+    },
+
+    userType : {
+        type : String,
+        default : "admin",
+        immutable : true
     }
 })
 

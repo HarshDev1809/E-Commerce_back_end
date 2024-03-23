@@ -56,6 +56,11 @@ const userSchema = mongoose.Schema({
         type : [mongoose.SchemaTypes.ObjectId],
         ref : "ECommerceProductDB",
         default : []
+    },
+    userType : {
+        type : String,
+        default : "normalUser",
+        immutable : true
     }
 })
 

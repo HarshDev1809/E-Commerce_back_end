@@ -1,4 +1,7 @@
+const { SECRET } = require("../../configs/auth.configs");
+const Admin = require("../Models/admin.model");
 const User = require("../Models/user.model");
+const jwt = require("jsonwebtoken");
 
 const verifySignIn = (req,res,next)=>{
     const { userName, passWord } = req.body;
@@ -106,9 +109,32 @@ const verifyAdminSignUp = async(req,res,next)=>{
   }
 }
 
+const verifyAdmin = (req,res,next)=>{
+  let token = req.headers['x-access-token']
+  if(!token){
+    return res.status(403).send({message:"No Token Provided"});
+}
+  jwt.verify(token,SECRET,async(err,payload)=>{
+    if(err){
+      return res.status(401).send({message : "Admin not Authenticated!"});
+    }
+
+    if(!payload.adminId){
+      return res.status(400).send({message : "Not Admin!"});
+    }
+
+    const adminId = payload.adminId;
+    const admin = await Admin.findOne({adminId : adminId});
+    req.admin = admin;
+    next();
+  })
+
+}
+
 module.exports = {
     verifySignIn,
     verifySignUp,
     verifyAdminSignIn,
-    verifyAdminSignUp
+    verifyAdminSignUp,
+    verifyAdmin
 }
