@@ -50,7 +50,8 @@ const tags = [
   "Chain",
   "set",
   "Gold",
-  "Silver"
+  "Silver",
+  "Rose Gold"
 ];
 
 const defaultProductUrl =
