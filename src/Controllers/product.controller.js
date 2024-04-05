@@ -39,3 +39,38 @@ exports.createProduct = async(req,res)=>{
     // return res.status(200).send(req.admin);
 };
 
+exports.getCartItem = async(req,res)=>{
+    const items = req.user.shoppingCart
+    return res.status(200).send(items);
+}
+
+exports.addCartItem = async(req,res)=>{
+    const {id} = req.body;
+    const {user,product} = req;
+    try{
+        user.shoppingCart.push(id);
+        await user.save();
+        return res.status(201).send(user.shoppingCart);
+    }catch(err){
+        return res.status(500).send({message : "Something Went Wrong!"});
+    }
+}
+
+exports.removeCartItem = async(req,res)=>{
+    const {id} = req.body;
+    const {user} = req;
+    try{
+        for(let i = 0 ; i < user.shoppingCart.length ; i++){
+            if(id === user.shoppingCart[i]){
+                user.shoppingCart.splice(i,1);
+                break;
+            }
+        }
+        await user.save();
+        return res.status(200).send(user.shoppingCart)
+    }
+    catch(err){
+        return res.status(500).send({message : "Something Went Wrong!"});
+    }
+}
+

@@ -128,7 +128,23 @@ const verifyAdmin = (req,res,next)=>{
     req.admin = admin;
     next();
   })
+}
 
+const verifyUser = (req,res,next)=>{
+  let token = req.headers['x-access-token']
+  if(!token){
+    return res.status(403).send({message:"No Token Provided"});
+}
+  jwt.verify(token,SECRET,async(err,payload)=>{
+    if(err){
+      return res.status(401).send({message : "Admin not Authenticated!"});
+    }
+
+    const userName = payload.userName;
+    const user = await User.findOne({userName : userName});
+    req.user = user;
+    next();
+  })
 }
 
 module.exports = {
@@ -136,5 +152,6 @@ module.exports = {
     verifySignUp,
     verifyAdminSignIn,
     verifyAdminSignUp,
-    verifyAdmin
+    verifyAdmin,
+    verifyUser
 }

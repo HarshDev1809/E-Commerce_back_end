@@ -48,13 +48,11 @@ const userSchema = mongoose.Schema({
         type : Number,
     },
     shoppingCart : {
-        type : [mongoose.SchemaTypes.ObjectId],
-        ref : "ECommerceProductDB",
+        type : [Number],
         default : []
     },
     wishList : {
-        type : [mongoose.SchemaTypes.ObjectId],
-        ref : "ECommerceProductDB",
+        type : [Number],
         default : []
     },
     userType : {
