@@ -122,3 +122,14 @@ exports.adminSignUp = async (req, res) => {
     return res.status(500).send({ message: "Something Went Wrong!" });
   }
 };
+
+exports.verifyToken = async(req,res)=>{
+  const {token} = req.body;
+  jwt.verify(token,SECRET,(err,decoded)=>{
+    if(err){
+      return res.send(false);
+    }else{
+      return res.status(200).send(true);
+    }
+  })
+}

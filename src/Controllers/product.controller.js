@@ -74,3 +74,16 @@ exports.removeCartItem = async(req,res)=>{
     }
 }
 
+exports.getProductById = async(req,res)=>{
+    const id = req.params.id;
+    try{
+        const product = await Product.find({uId : id});
+        if(!product.length){
+            return res.status(400).send({message : "Product Not Found"});
+        }
+        return res.status(200).send(product[0]);
+    }catch(err){
+        return res.status(500).send({message : "Something Went Wrong!"})
+    }
+}
+
