@@ -10,7 +10,7 @@ const verifyProduct = (req, res, next) => {
     displayPrice,
     productUrl,
     productCount,
-    productImages,
+    productImage,
   } = req.body;
 
   if (!name) {
@@ -57,10 +57,11 @@ const verifyProduct = (req, res, next) => {
     req.body.productCount = 1;
   }
 
-  if (!productImages || !productImages.length) {
+  if (!productImage || !productImage.length) {
+    console.log(productImages)
+    console.log(productImages.length)
     console.log("inside if");
-    req.body.productImages = [req.body.productUrl];
-    console.log(req.body);
+    req.body.productImage = [req.body.productUrl];
   }
 
   next();
@@ -80,7 +81,18 @@ const verifyProductId = async (req, res, next) => {
   }
 };
 
+const verifyProductCount = async(req,res,next) =>{
+  const {count} = req.body;
+  console.log(count)
+  if(!count){
+    req.body.count = 1;
+  }
+  console.log(count)
+  next();
+}
+
 module.exports = {
   verifyProduct,
   verifyProductId,
+  verifyProductCount
 };

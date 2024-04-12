@@ -51,14 +51,41 @@ const tags = [
   "set",
   "Gold",
   "Silver",
-  "Rose Gold"
+  "Rose Gold",
+  "Stainless Steel"
 ];
+
+const materials = [
+  "Gold",
+  "Rose Gold",
+  "Silver",
+  "Stainless Steel"
+]
+
+const gender = [
+  "male",
+  "female",
+  "kid"
+]
+
+const orderStatus = [
+  "Pending",
+  "Confirmed",
+  "Out for Delivery",
+  "Delivered",
+  "Cancelled"
+]
 
 const defaultProductUrl =
   "https://drive.google.com/file/d/1pxm7Me1-HTSBd6TPyiitFV0vbaepiJGg/view?usp=drive_link";
 
+
+
 module.exports = {
   states,
   tags,
-  defaultProductUrl
+  defaultProductUrl,
+  materials,
+  gender,
+  orderStatus
 };

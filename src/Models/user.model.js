@@ -1,5 +1,16 @@
 const mongoose = require("mongoose");
 const {state} = require("../Utils/constants");
+
+const cartSchema = mongoose.Schema({
+    uId : {
+        type : Number
+    },
+
+    quantity : {
+        type : Number
+    }
+})
+
 const userSchema = mongoose.Schema({
     userName : {
         type : String,
@@ -48,7 +59,7 @@ const userSchema = mongoose.Schema({
         type : Number,
     },
     shoppingCart : {
-        type : [Number],
+        type : [cartSchema],
         default : []
     },
     wishList : {
@@ -59,6 +70,10 @@ const userSchema = mongoose.Schema({
         type : String,
         default : "normalUser",
         immutable : true
+    },
+    order : {
+        type : [Number],
+        default : []
     }
 })
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { tags } = require("../Utils/constants");
+const { tags, materials, gender } = require("../Utils/constants");
 
 const productSchema = mongoose.Schema({
     uId : {
@@ -47,6 +47,18 @@ const productSchema = mongoose.Schema({
     productImages : {
         type : [String],
         default : []
+    },
+
+    material : {
+        type : String,
+        default : "Gold",
+        enum : materials
+    },
+
+    for : {
+        type : String,
+        default : "female",
+        enum : gender
     }
 })
 
